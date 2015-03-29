@@ -13,18 +13,37 @@ var express = require('express')
 
 var client = memjs.Client.create('pub-memcache-10246.us-east-1-2.3.ec2.garantiadata.com:10246');
 
+
+//stuff to be included on example website
 router.get('/', function(req, res, next) {
 	var uuidtext = uuid.v4();
     res.render('index', {token: uuidtext});
 });
+router.post('/createaccount', function(req, res, next) { //singup form posts here, do the server side checking to /verify
+	var email = req.body.email,
+		token = req.body.token;
 
+	var verified = 'gotdevices?'
+	//post email/token to /verify	
+	
+	if (verified = 'verified') {
+		res.send('Congrats you have devices - account created'); 
+	} 
+	else {
+		res.send('Nice try robot!');
+	}    
+});
+
+
+
+
+//the actual web service
 router.post('/verify', function(req, res, next) { //URL for signup form to Post to
 	var email = req.body.email;
 	console.log('signup request received for: ' + email);
 	var token = req.body.token;//crypto.createHash('sha1').update(email).digest("hex");
 	console.log('token: ' + token);
 	resp = 'nope';
-
 
 
 	client.set(token, '-1', function(err, success) {
