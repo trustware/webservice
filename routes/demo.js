@@ -37,8 +37,8 @@ router.post('/createaccount', function(req, res, next) {
 	  	if (verified == 'verified') {
 				res.send('Congrats you have devices - account created'); 
 			}
-      else if (verified == 'manufacturer timout') {
-        res.send('Error: Manufacturer timout'); 
+      else if (verified == 'manufacturer timeout') {
+        res.send('Error: Manufacturer timeout'); 
       }
 		  else {
 			 res.send('Nice try robot!');
