@@ -36,10 +36,13 @@ router.post('/createaccount', function(req, res, next) {
   		
 	  	if (verified == 'verified') {
 				res.send('Congrats you have devices - account created'); 
-			} 
-			else {
-				res.send('Nice try robot!');
 			}
+      else if (verified == 'manufacturer timout') {
+        res.send('Error: Manufacturer timout'); 
+      }
+		  else {
+			 res.send('Nice try robot!');
+		  }
 	}); 
 
 });

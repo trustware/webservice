@@ -30,7 +30,7 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
   		var timeout = 0;
   		var timerId = setInterval(function() {
   			timeout = timeout + .4;
-  			if (timeout > 10) {
+  			if (timeout > 20) {
   				resp = 'manufacturer timeout';
 			    clearInterval(timerId);
 			    res.send(resp);
