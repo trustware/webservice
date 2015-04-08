@@ -3,80 +3,36 @@
 <head>
   <meta charset="utf-8">
   <title>Device Based Human Verification</title>
-  <style>
-  p {
-    margin: 0;
-    color: blue;
-  }
-  div,p {
-    margin-left: 10px;
-  }
-  span {
-    color: red;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
-
+ 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  
 
 </head>
 <body>
 <div class="row">
 <div class="col-md-6 col-md-offset-3">
+
   <h1>Device Based Human Verification</h1>
   <p>Sign up for an account!</p>
-  <form action="#" id="signupForm" name="signupForm">
+  <form action="/demo/createaccount" id="signupForm" name="signupForm" method="post">
+
+    <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
+
     <div>
       Email: <input type="text" name="email" placeholder=<%= token %>>
       Password: <input type="password">
-      <input type="submit">
+      <input type="submit"  value="Sign up!" onclick="$('#loading').show(); $('#signupForm').hide();"/>
     </div>
-
-    <input style="visibility:hidden;" type="text" url="https://gotdevices.herokuapp.com/devicecheck" value=<%= token %> id="trustwareInfo">
 
   </form>
 
+  <div id="loading" style="display:none;"><img src="/images/loading.gif" alt="" />Verifying devices please wait!</div>
 
-  <span></span>
 
-</div>
-</div>
- 
-<script>
-$( "form[name='signupForm']" ).submit(function( event ) {
-  event.preventDefault();
-  var $form = $( this ),
-    emailtext = $form.find( "input[name='email']" ).val(),
-    tokentext = $form.find( "input[id='trustwareInfo']" ).val();
-
-  /*var tokentext = Math.floor((1 + Math.random()) * 0x10000).toString(16) + 
-    Math.floor((1 + Math.random()) * 0x10000).toString(16) + '-' +
-    Math.floor((1 + Math.random()) * 0x10000).toString(16) + '-' +
-    Math.floor((1 + Math.random()) * 0x10000).toString(16) + '-' +
-    Math.floor((1 + Math.random()) * 0x10000).toString(16) + 
-    Math.floor((1 + Math.random()) * 0x10000).toString(16); //CryptoJS.SHA1(emailtext);
-  $('input[name=trustwareToken]').val(tokentext);
-  $('form[name=trustwareForm]').submit();*/
-
-  //alert(tokentext);
-  $.post( "/verify", {email: emailtext, token: tokentext})
-  .done(function( data ) {
-    if (data === "verified") {
-      alert("Congrats you have devices!")
-      $("form").unbind("submit").submit();
-    }
-    else {
-      $( "span" ).text( "Nice try robot!" ).show().fadeOut( 1000 );
-    }
-
-  });
-
-});
-</script>
- 
 </body>
 </html>

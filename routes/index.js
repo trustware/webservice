@@ -6,6 +6,7 @@ var express = require('express')
     , path = require('path')
     , bodyParser = require('body-parser')
     , uuid = require('node-uuid')
+    , request = require('request')
     , methodOverride = require('method-override')
     , app = express()
     , port = process.env.PORT || 3000
@@ -14,11 +15,21 @@ var express = require('express')
 var client = memjs.Client.create('pub-memcache-10246.us-east-1-2.3.ec2.garantiadata.com:10246');
 
 
-//stuff to be included on example website
 router.get('/', function(req, res, next) {
+	res.statusCode = 302; 
+    res.setHeader("Location", "https://github.com/trustware");
+    res.end();
+});
+
+//DEPRECIATED, use /api and /demo instead
+
+//stuff to be included on example website
+/*router.get('/', function(req, res, next) {
 	var uuidtext = uuid.v4();
     res.render('index', {token: uuidtext});
-});
+});*/
+
+
 router.post('/createaccount', function(req, res, next) { //singup form posts here, do the server side checking to /verify
 	var email = req.body.email,
 		token = req.body.token;
