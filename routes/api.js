@@ -27,8 +27,15 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
   	if (success) 
   	{
   		console.log('successfully set token with trust level: -1');
-
+  		var timeout = 0;
   		var timerId = setInterval(function() {
+  			timeout = timeout + .4;
+  			if (timeout > 10) {
+  				resp = 'manufacturer timeout';
+			    clearInterval(timerId);
+			    res.send(resp);
+
+  			}
   			client.get(token, function (err, value, key) {
 		    	if (value != null) {
 			      	//console.log('current token trust level: ' + value.toString());
