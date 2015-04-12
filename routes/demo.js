@@ -17,7 +17,7 @@ var express = require('express')
 
 router.get('/', function(req, res, next) {
 	var uuidtext = uuid.v4();
-    res.render('index', {token: uuidtext});
+  res.render('index', {token: uuidtext});
 });
 
 
@@ -28,7 +28,7 @@ router.post('/createaccount', function(req, res, next) {
 
 	var verified = 'gotdevices?'
 
-	request.post('http://gotdevices.herokuapp.com/api/verify', {form: {email: emailtext, token: tokentext}}, 
+	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {email: emailtext, token: tokentext}}, 
 		function (err, response, body) {
   		verified = body;
 
