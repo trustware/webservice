@@ -65,7 +65,7 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 		token = req.body.token;
 	console.log('manufacturer response received for token ' + token + ' with trust level: ' + trustlevel);
 
-	//only do this for a trust manufacturer 
+	//only do this for a trusted manufacturer 
 	client.set(token, trustlevel);
 	res.send('thanks');
     
