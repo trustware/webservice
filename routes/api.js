@@ -69,7 +69,7 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 
 
 	//only do this for a trusted manufacturer 
-	console.log('manufacturer response: ' + req.toString());
+	console.log('manufacturer response: ' + req.get('host'));
 
 	if (req.hostname == 'gotdevices.herokuapp.com') {
 		client.get(token, function (err, value, key) {
