@@ -20,9 +20,13 @@ To implement:
 
 1. Added hidden input to form you wish to check with Trustware (<%= token %> is generated server side as a uuid.v4() via Embedded Javascript):
 
+```html
 <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
+```
 
 2. POST to /api/verify on form submission (example shown in Node.js):
+
+```html
 router.post('/createaccount', function(req, res, next) { 
 	var emailtext = req.body.email , 
 		tokentext = req.body.trustwareInfo;
@@ -37,6 +41,7 @@ router.post('/createaccount', function(req, res, next) {
 			 }
 	}); 
 }); 
+```
 
 
 Live demo URL: http://gotdevices.herokuapp.com/demo
