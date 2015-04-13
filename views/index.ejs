@@ -20,16 +20,25 @@
 
   <h1>Device Based Human Verification</h1>
   <p>Sign up for an account!</p>
-  <form action="/demo/createaccount" id="signupForm" name="signupForm" method="post">
+  
 
+  <form action="/demo/createaccount" id="signupForm" name="signupForm" method="post">
     <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
 
-    <div>
-      Email: <input type="text" name="email">
-      <input type="submit"  value="Sign up!" onclick="$('#loading').show(); $('#signupForm').hide();"/>
-    </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-default" onclick="$('#loading').show(); $('#signupForm').hide();">Submit</button>
+</form>
 
-  </form>
+
+
+
 
   <div id="loading" style="display:none;" class="col-md-6 col-md-offset-3"><img src="/images/loading.gif" alt="(load)" style="padding:20px;" />Verifying please wait...</div>
 
