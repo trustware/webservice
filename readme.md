@@ -13,14 +13,14 @@ To implement:
 <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
 ```
 
-- POST to /api/verify on form submission (example shown in Node.js-- token is the only required parameter):
+- POST to Trustware via https://gotdevices.herokuapp.com/api/verify on form submission (example shown in Node.js-- token is the only required parameter):
 
 ```html
 router.post('/createaccount', function(req, res, next) { 
 	var emailtext = req.body.email , 
 		tokentext = req.body.trustwareInfo;
 
-	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {email: emailtext, token: tokentext}}, 
+	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {token: tokentext, email: emailtext}}, 
 		function (err, response, body) {
 		  	if (body == 'verified') {
 
