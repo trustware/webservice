@@ -18,7 +18,7 @@ Demo implementation in /routes/demo.js + /views/index.ejs
 
 To implement:
 
-1. Added hidden input to form you wish to check with Trustware (<%= token %> is generated server side as a uuid.v4() via Embedded Javascript):
+1. Added hidden input to form (which submits to /createaccount in this example) you wish to check with Trustware (<%= token %> is generated server side as a uuid.v4() via Embedded Javascript):
 
 ```html
 <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
