@@ -20,7 +20,7 @@ router.post('/createaccount', function(req, res, next) {
 	var emailtext = req.body.email , 
 		tokentext = req.body.trustwareInfo;
 
-	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {token: tokentext, email: emailtext}}, 
+	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {token: tokentext}}, 
 		function (err, response, body) {
 		  	if (body == 'verified') {
 
