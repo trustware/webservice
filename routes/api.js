@@ -71,7 +71,7 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 	//only do this for a trusted manufacturer 
 	console.log('manufacturer response received from hostname: ' + req.hostname);
 
-	if (req.hostname == 'eecs588-auth.herokuapp.com') {
+	if (req.hostname == 'gotdevices.herokuapp.com') {
 		client.get(token, function (err, value, key) {
 			var theval = parseInt(value.toString());
 			console.log('old trust: ' + value.toString());
