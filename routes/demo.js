@@ -28,6 +28,7 @@ router.post('/createaccount', function(req, res, next) {
 
 	var verified = 'gotdevices?'
 
+  //request.post('http://localhost:3000/api/verify', {form: {email: emailtext, token: tokentext}},
 	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {email: emailtext, token: tokentext}}, 
 		function (err, response, body) {
   		verified = body;

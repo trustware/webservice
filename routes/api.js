@@ -44,16 +44,18 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
 			      		clearInterval(timerId);
 			      		res.send(resp);
 			      	}
-			      	else if (parseInt(value.toString()) != -1) {  //manufacturer says it's a bot
+
+			      	// no longer do this, just wait for trust/timeout (unless client tells us # of devices)
+			      	/*else if (parseInt(value.toString()) != -1) {  //manufacturer says it's a bot
 			      		clearInterval(timerId); 
 			      		res.send(resp);
-			      	}
+			      	}*/
 		    	}	 
 		  	});
   		},400);
 		}	
 		else {
-			console.log('DB error: ' + err)
+			console.log('DB verify error: ' + err);
 		}
 
   });
@@ -65,10 +67,38 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 		token = req.body.token;
 	console.log('manufacturer response received for token ' + token + ' with trust level: ' + trustlevel);
 
+
 	//only do this for a trusted manufacturer 
-	client.set(token, trustlevel);
-	res.send('thanks');
-    
+	console.log('manufacturer response received from hostname: ' + req.hostname);
+
+	if (req.hostname == 'eecs588-auth.herokuapp.com') {
+		client.get(token, function (err, value, key) {
+			var theval = parseInt(value.toString());
+			console.log('old trust: ' + value.toString());
+
+			theval = theval + parseInt(trustlevel);
+			console.log('new trust: ' + theval.toString());
+
+			client.set(token, theval.toString());
+			res.send('thanks');
+		});
+	}
+	else {
+		res.send('only trusted manufacturers allowed');
+	}
+
+
+
+		/*client.set(token, theval, function(err, success) {
+	  	if (success) 
+	  	{
+	  		res.send('thanks');
+	  	}
+	  	else {
+	  		console.log('DB mnfr error: ' + err);
+	  		res.send('DBMnfrError');
+	  	}
+	  }); */
 });
 
 module.exports = router;
