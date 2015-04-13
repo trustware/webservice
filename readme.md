@@ -13,7 +13,7 @@ To implement:
 <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
 ```
 
-- POST to /api/verify on form submission (example shown in Node.js-- token is only required parameter):
+- POST to /api/verify on form submission (example shown in Node.js-- token is the only required parameter):
 
 ```html
 router.post('/createaccount', function(req, res, next) { 
