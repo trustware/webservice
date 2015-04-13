@@ -7,18 +7,17 @@ Demo implementation in /routes/demo.js + /views/index.ejs
 
 To implement:
 
-- Add a hidden input to form (which submits the hidden input and an email to /createaccount in this example) you wish to check with Trustware (<%= token %> is generated server side as a uuid.v4() via Embedded Javascript):
+- Add a hidden input to form (which submits to /createaccount in this example) you wish to check with Trustware (<%= token %> is generated server side as a uuid.v4() via Embedded Javascript):
 
 ```html
 <input style="display:none" type="text" url="https://gotdevices.herokuapp.com/api/devicecheck" value=<%= token %> id="trustwareInfo" name="trustwareInfo">
 ```
 
-- POST to Trustware via https://gotdevices.herokuapp.com/api/verify on form submission (example shown in Node.js-- token is the only required parameter):
+- POST to Trustware via https://gotdevices.herokuapp.com/api/verify on form submission (example shown in Node.js):
 
 ```html
 router.post('/createaccount', function(req, res, next) { 
-	var emailtext = req.body.email , 
-		tokentext = req.body.trustwareInfo;
+	var tokentext = req.body.trustwareInfo;
 
 	request.post('https://gotdevices.herokuapp.com/api/verify', {form: {token: tokentext}}, 
 		function (err, response, body) {
