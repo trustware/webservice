@@ -64,14 +64,15 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
 
 router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to Post to
 	var trustlevel = req.body.trust,
+		signature = req.body.signature,
 		token = req.body.token;
 	console.log('manufacturer response received for token ' + token + ' with trust level: ' + trustlevel);
-
+	
+	//todo: use Crypto module to have have signature use pub/piv keys.
+	console.log('signautre: ' + signautre);
 
 	//only do this for a trusted manufacturer 
-	console.log('manufacturer response: ' + req.get('origin'));
-
-	if (req.hostname == 'gotdevices.herokuapp.com') {
+	if (signature == token + 'secretsignature') {
 		client.get(token, function (err, value, key) {
 			var theval = parseInt(value.toString());
 			console.log('old trust: ' + value.toString());
@@ -87,18 +88,6 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 		res.send('only trusted manufacturers allowed');
 	}
 
-
-
-		/*client.set(token, theval, function(err, success) {
-	  	if (success) 
-	  	{
-	  		res.send('thanks');
-	  	}
-	  	else {
-	  		console.log('DB mnfr error: ' + err);
-	  		res.send('DBMnfrError');
-	  	}
-	  }); */
 });
 
 module.exports = router;
