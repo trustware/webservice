@@ -69,7 +69,7 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 	console.log('manufacturer response received for token ' + token + ' with trust level: ' + trustlevel);
 	
 	//todo: use Crypto module to have have signature use pub/piv keys.
-	console.log('signautre: ' + signautre);
+	console.log('signature: ' + signature);
 
 	//only do this for a trusted manufacturer 
 	if (signature == token + 'secretsignature') {
