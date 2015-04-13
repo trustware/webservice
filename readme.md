@@ -30,7 +30,7 @@ router.post('/createaccount', function(req, res, next) {
 			}
 			else {
 
-				//Not verfied via Trustware, maybe try a CAPTCHA
+				//Not verified via Trustware, maybe try a CAPTCHA
 
 				res.send('Nice try robot!');
 			 }
