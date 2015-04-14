@@ -64,15 +64,23 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
 
 router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to Post to
 	var trustlevel = req.body.trust,
-		signature = req.body.signature,
+		sig = req.body.sig,
 		token = req.body.token;
 	console.log('manufacturer response received for token ' + token + ' with trust level: ' + trustlevel);
-	
-	//todo: use Crypto module to have have signature use pub/piv keys.
-	console.log('signature: ' + signature);
+	console.log('signature: ' + sig);
 
 	//only do this for a trusted manufacturer 
-	if (signature == token + 'secretsignature') {
+	var pubkey = '-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArPpYkhI1/yO1IS7vNWPe\nc3WpmKaTw6+PaEu1+pc1goqYHQZT8sty+VnN5GCthlLdqbrB1TLrLAIpvqFd1byh\nCLKfFdCg0VoGzj1wFYhbOFQUZ9lGc7s2Sby59hL/ibWWlVYsYlagzzCSAkEk9Wbk\ngcQIDUhb1RimpbcuY//yZryZDXi34AXiSAVJejcYCFJ7ZUiGicAIsM/HdDVeEZLO\nLXf0LP653Mh/2qb4rO2WHj+ZAdZRPrj4YA53j9LfN0MtVYmYHEm7WCcVE+xHFCv6\n3Ibp36t1V/s05zjjQLROkydQacaFLG4BDn3uVNjYxYqJvwzy/rbuDazC4fCmlvFa\nPwIDAQAB\n-----END PUBLIC KEY-----';
+
+	var verifier = crypto.createVerify('sha256');
+
+	verifier.update(token);
+
+	var ver = verifier.verify(pubkey, sig, 'hex');
+
+	console.log(ver);
+
+	if (ver) {
 		client.get(token, function (err, value, key) {
 			var theval = parseInt(value.toString());
 			console.log('old trust: ' + value.toString());
