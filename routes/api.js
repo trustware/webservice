@@ -83,6 +83,7 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 	if (ver) {
 		try {
 		client.get(token, function (err, value, key) {
+			if (value){ 
 			var theval = parseInt(value.toString());
 			console.log('old trust: ' + value.toString());
 
@@ -91,6 +92,10 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 
 			client.set(token, theval.toString());
 			res.send('thanks');
+		}
+		else {
+			res.send('nov');
+		}
 		});
 		}
 		catch(err) {
