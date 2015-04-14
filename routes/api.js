@@ -32,6 +32,7 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
   			timeout = timeout + .4;
   			if (timeout > 25) {
   				resp = 'manufacturer timeout';
+  				client.set(token, -1);
 			    clearInterval(timerId);
 			    res.send(resp);
 
@@ -41,6 +42,7 @@ router.post('/verify', function(req, res, next) { //URL for signup form to Post 
 			      	//console.log('current token trust level: ' + value.toString());
 			      	if (parseInt(value.toString()) > 50) {
 			      		resp = 'verified';
+			      		client.set(token, -1);
 			      		clearInterval(timerId);
 			      		res.send(resp);
 			      	}
