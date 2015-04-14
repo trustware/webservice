@@ -81,6 +81,7 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 	console.log(ver);
 
 	if (ver) {
+		try {
 		client.get(token, function (err, value, key) {
 			var theval = parseInt(value.toString());
 			console.log('old trust: ' + value.toString());
@@ -91,6 +92,10 @@ router.post('/devicecheck', function(req, res, next) { //URL for manufacturer to
 			client.set(token, theval.toString());
 			res.send('thanks');
 		});
+		}
+		catch(err) {
+			res.send('no');
+		}
 	}
 	else {
 		res.send('only trusted manufacturers allowed');
